@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algebra Zone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: sans-serif;
@@ -77,30 +78,56 @@
             color: #337ab7;
             margin-bottom: 10px;
         }
+        .github-section {
+            margin-top: 20px;
+        }
+        .github-link-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .github-link-container:hover {
+            background-color: #e0e0e0;
+        }
+        .github-icon {
+            font-size: 1.5em; /* Adjust size as needed */
+        }
+        .github-text {
+            font-size: 1em;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to the Algebra Portal!</h1>
         <p class="equation">Explore the fascinating world of equations and variables.</p>
-
         <div class="button-container">
-            <a href="1.8.html" class="algebra-button special-button">Chapter 1.8</a>
-            <a href="1.12.html" class="algebra-button special-button">Chapter 1.12</a>
+            <a href="1.8.html" class="algebra-button special-button">Eaglermath 1.8</a>
+            <a href="1.12.html" class="algebra-button special-button">Eaglermath 1.12</a>
             <a href="https://www.khanacademy.org/math/algebra" target="_blank" class="link-button">Khan Academy Algebra</a>
             <a href="https://www.mathway.com/Algebra" target="_blank" class="link-button">Mathway Algebra</a>
             <a href="https://www.symbolab.com/solver/algebra-calculator" target="_blank" class="link-button">Symbolab Algebra Calculator</a>
             <a href="https://www.purplemath.com/" target="_blank" class="link-button">Purplemath</a>
             <a href="https://www.wolframalpha.com/input/?i=algebra" target="_blank" class="link-button">WolframAlpha Algebra</a>
-            <a href="https://justalgebra.github.io" target="_blank" class="link-button">Algebra</a>
+            <a href="https://justalgebra.github.io" target="_blank" class="algebra-button special-button">JustAlgebra</a>
         </div>
+        <h3>Blue buttons are personal favorites</h3>
 
         <p>Dive deeper into specific topics using the buttons above!</p>
     </div>
     <div class="github-section">
-    <a href="https://github.com/factoringcentral/factoringcentral.github.io" target="_blank" class="github-link">
-        source
-    </a>
+        <a href="https://github.com/factoringcentral/factoringcentral.github.io" target="_blank" class="github-link-container">
+            <i class="fab fa-github github-icon"></i>
+            <span class="github-text">Source on GitHub</span>
+        </a>
+    </div>
 </div>
 
 </body>
