@@ -404,7 +404,8 @@ var fvals = {
     multiJoinContainer.style.marginTop = "10px";
     multiJoinContainer.style.marginBottom = "10px";
 
-    const numJoinsInput = (numJoinsInput.id = "numJoins"); // document.createElement('input');
+    const numJoinsInput = document.createElement("input");
+    numJoinsInput.id = "numJoins"; // document.createElement('input');
     numJoinsInput.placeholder = "Number of bots";
     numJoinsInput.type = "number";
     numJoinsInput.style.width = "200px";
