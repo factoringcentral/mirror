@@ -19,9 +19,9 @@
         .container {
             background-color: #fff;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
+            border-radius: 100px;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+            width: 100%;
             max-width: 900px;
             text-align: center;
         }
@@ -103,6 +103,22 @@
         .github-text {
             font-size: 1em;
         }
+        .break {
+        border: none;
+        border-top: 3px double #333;
+        color: #333;
+        overflow: visible;
+        text-align: center;
+        height: 5px;
+        }
+        .break::after {
+            content: "Φ";
+            background: #fff;
+            padding: 0 4px;
+            position: relative;
+            top: -10px;
+        }
+
     </style>
 </head>
 <body>
@@ -113,8 +129,8 @@
             <a href="https://factoringcentral.github.io/1.8" class="algebra-button special-button">Eaglermath 1.8</a>
             <a href="https://factoringcentral.github.io/1.12" class="algebra-button special-button">Eaglermath 1.12</a>
             <a href="https://www.khanacademy.org/math/algebra" target="_blank" class="link-button">Khan Academy Algebra</a>
-            <a href="https://www.mathway.com/Algebra" target="_blank" class="link-button">Mathway Algebra</a>
             <a href="https://www.symbolab.com/solver/algebra-calculator" target="_blank" class="link-button">Symbolab Algebra Calculator</a>
+            <a href="https://www.mathway.com/Algebra" target="_blank" class="link-button">Mathway Algebra</a>
             <a href="https://www.purplemath.com/" target="_blank" class="link-button">Purplemath</a>
             <a href="https://www.wolframalpha.com/input/?i=algebra" target="_blank" class="link-button">WolframAlpha Algebra</a>
             <a href="https://justalgebra.github.io" target="_blank" class="algebra-button special-button">JustAlgebra</a>
@@ -125,7 +141,9 @@
 
         <p>Dive deeper into specific topics using the buttons above!</p>
     </div>
-    <div class="github-section">
+
+    <div class="github-section" style="text-align: center;">
+        <hr width="700px" class="break">
         <a href="https://github.com/factoringcentral/factoringcentral.github.io" target="_blank" class="github-link-container">
             <i class="fab fa-github github-icon"></i>
             <span class="github-text">Source on GitHub</span>
