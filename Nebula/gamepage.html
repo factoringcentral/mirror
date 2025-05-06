@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nebula-X Game Page</title>
+     <link rel="icon" href="https://raw.githubusercontent.com/Nebula-X-Development/Nebula-X-BETA/refs/heads/main/NEBULA_LOGO.png" type="image/png">
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        background: radial-gradient(circle at bottom, #7c2ae8, #000);
+        color: white;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        position: relative;
+        flex-direction: column; /* Adjust for vertical layout */
+      }
+
+      .background {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .stars {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        overflow: hidden;
+        z-index: -1; /* Move stars to the background */
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0;
+        animation: twinkle 5s infinite;
+      }
+
+      @keyframes twinkle {
+        0% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+
+      .search-bar {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px;
+        width: 80%;
+        max-width: 400px;
+        background: rgba(10, 10, 10, 0.8);
+        border-radius: 20px;
+        border: none;
+        font-size: 16px;
+        color: white;
+        transition: box-shadow 0.3s ease;
+        z-index: 1;
+      }
+
+      .search-bar:focus {
+        box-shadow: 0 0 10px 3px rgba(213, 128, 255, 0.8);
+        outline: none;
+      }
+
+      .tiles-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 tiles per row */
+        gap: 10px; /* Adjusted gap */
+        padding: 20px;
+        align-items: center;
+        margin-top: 120px; /* Adjusted to provide space under the search bar */
+        width: 80%;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow-y: scroll; /* Enable vertical scrolling for the tiles */
+        max-height: 70vh; /* Limit the height of the tiles container */
+      }
+
+      .tile {
+        width: 90%;
+        height: 150px;
+        background: #;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        color: white;
+        font-size: 1.2rem;
+        box-shadow: 0 0 0px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .tile:hover {
+        transform: scale(1.05);
+      }
+
+      .tile a {
+        text-decoration: none;
+        color: white;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 100%;
+        background-color: #111;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        transition: width 0.3s ease-in-out;
+        padding-top: 15px;
+        z-index: 10;
+        border-bottom: 2px solid #d580ff;
+      }
+
+      .sidebar:hover {
+        width: 70px;
+      }
+
+      .sidebar .logo {
+        width: 40px;
+        height: auto;
+        margin-bottom: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar .logo:hover {
+        transform: scale(1.2);
+      }
+
+      .sidebar .divider {
+        width: 80%;
+        border-bottom: 1px solid #d580ff;
+        margin-bottom: 15px;
+      }
+
+      .sidebar .nav-item {
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+        color: #d580ff;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        margin-bottom: 15px;
+      }
+
+      .sidebar .nav-item.selected {
+        background-color: #b34cd9;
+        border-radius: 10px;
+        color: white;
+      }
+
+      .sidebar .nav-item i {
+        font-size: 16px;
+      }
+
+      .sidebar .nav-item:hover {
+        transform: scale(1.2);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background">
+      <div class="stars"></div>
+      <!-- Stars background -->
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Logo -->
+        <a href="index.html" class="logo-link">
+          <img
+            class="logo"
+            src="https://raw.githubusercontent.com/Nebula-X-Development/Nebula-X-BETA/refs/heads/main/NEBULA_LOGO.png"
+            alt="Nebula-X Logo"
+          />
+        </a>
+
+        <div class="divider"></div>
+
+        <!-- Sidebar Navigation Items -->
+        <div class="nav-item">
+          <a href="index.html"><i class="fa fa-home" style="color:#d580ff;"></i></a>
+        </div>
+        <div class="nav-item">
+          <a href="search.html"><i class="fa fa-search" style="color:#d580ff;"></i></a>
+        </div>
+<div class="nav-item">
+  <a href="tools.html"><i class="fa-solid fa-screwdriver-wrench" style="color:#d580ff;"></i></a>
+</div>
+        <div class="nav-item selected"><i class="fa fa-gamepad"></i></div>
+        <div class="divider"></div>
+        <div class="nav-item">
+          <a href="Aboutpage.html"><i class="fa fa-circle-info" style="color:#d580ff;"></i></a>
+        </div>
+        <div class="nav-item">
+          <a href="settings.html"><i class="fa fa-cogs" style="color:#d580ff;"></i></a>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <input
+        type="text"
+        id="searchBar"
+        class="search-bar"
+        placeholder="Search for a game..."
+      />
+
+      <!-- Tiles Container (Game Links) -->
+      <div class="tiles-container" id="tilesContainer">
+        
+        <!-- game requests tile-->
+         <div class="tile">
+          <button
+            id="gamerequestBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://raw.githubusercontent.com/Nebula-X-Development/Nebula-X/refs/heads/main/game%20request.jpg"
+              alt="game request"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 1: Basket Random -->
+        <div class="tile">
+          <button
+            id="basketRandomBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://images.crazygames.com/basket-random_16x9/20240617090207/basket-random_16x9-cover?auto=format,compress&q=75&cs=strip"
+              alt="Basket Random"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 2: Minecraft -->
+        <div class="tile">
+          <button
+            id="slopeBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://lh3.googleusercontent.com/YiIKFuyxZkcum3bolGHKG3l6HIslgEk7uMkBaU6ryl7z-XwSHTUFoZOt523SnQdKy1ELUirxgvadfuKUhmDtYAH0RNU=s1280-w1280-h800"
+              alt="Slope"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 3: 1v1.lol -->
+        <div class="tile">
+          <button
+            id="1v1lolBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://imgs.crazygames.com/games/1v1-lol/cover-1585728351086.png?metadata=none&quality=40&width=1200&height=630&fit=crop"
+              alt="1v1.lol"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 4: eaglecraft -->
+        <div class="tile">
+          <button
+            id="eaglecraftBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBguLhvz0t3dWF19mKnzsDG7ZqZHmMFdg2A&s"
+              alt="eaglecraft"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 5: driftboss -->
+        <div class="tile">
+          <button
+            id="driftbossBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://imgs.crazygames.com/games/drift-boss/cover_16x9-1732741931008.png?metadata=none&quality=40&width=1200&height=630&fit=crop"
+              alt="driftboss"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 6: mario64 -->
+        <div class="tile">
+          <button
+            id="mario64Btn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbGTvGvk4uenNmbJm4RueU96gCSdFB6xosWA&s"
+              alt="mario64"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 7: crossyroads -->
+        <div class="tile">
+          <button
+            id="crossyroadBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/5cedd5e7c6e7df0001bbb67c/1564551973622-EE9YJORD9OFXPKW9NYKW/Banner_Video_Cover.jpg?format=1500w"
+              alt="crossyroad"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 8: flappy bird -->
+        <div class="tile">
+          <button
+            id="flappybirdBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://www.cnet.com/a/img/resize/46f2494ed207b1be804c17731f3949ed93dee003/hub/2014/02/14/6b6db47b-a5e1-11e3-a24e-d4ae52e62bcc/Flappy_Bird_Nick_02.jpg?auto=webp&fit=crop&height=675&width=1200"
+              alt="flappybird"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 9: eggycar -->
+        <div class="tile">
+          <button
+            id="eggycarBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://imgs.crazygames.com/eggy-car/20230720050147/eggy-car-cover?metadata=none&quality=40&width=1200&height=630&fit=crop"
+              alt="eggycar"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <!-- Game 10: game -->
+        <div class="tile">
+          <button
+            id="snowriderBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+          >
+            <img
+              src="https://static.keygames.com/2/115102/100968/1200x630/snow-rider-3d.webp"
+              alt="snowrider"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <div class="tile">
+          <button
+            id="kahootBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc_cnfSK8S__Nljzbkoz0bzl8meyZkYOFhhA&s"
+              alt="kahoot"
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        <div class="tile">
+          <button
+            id="liquidsoccerBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1705130/capsule_616x353.jpg?t=1671169997"
+              alt="super liquid soccer" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        <div class="tile">
+          <button
+            id="ships3dBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://images.crazygames.com/games/ships-3d/cover-1656950535291.png?auto=format,compress&q=75&cs=strip"
+              alt="ships3d" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+         <div class="tile">
+          <button
+            id="polytrackBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://i.ytimg.com/vi/wXsG1d9TzdI/maxresdefault.jpg"
+              alt="poly track" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+        <div class="tile">
+          <button
+            id="drivemadBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://w8.snokido.com/img/large/drive-mad.jpg"
+              alt="drive mad" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+    <div class="tile">
+          <button
+            id="boxingrndmBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://imgs.crazygames.com/games/boxing-random/cover-1622139160089.jpeg?metadata=none&quality=40&width=1200&height=630&fit=crop"
+              alt="boxing random" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+          <div class="tile">
+          <button
+            id="soccerrndmBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxcAC2rX60t8CbEj6fYQcGGf9WM1gBxHX6UQ&s"
+              alt="soccer random" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="drifthuntersBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://imgs.crazygames.com/games/drift-hunters/cover-1656950639575.png?metadata=none&quality=40&width=1200&height=630&fit=crop"
+              alt="drift hunters" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="subwaysurfersBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://subwaysurfers.com/media/f2ldlfpi/subwaysurfers_01.png"
+              alt="subaysurfers" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <div class="tile">
+          <button
+            id="rooftopsnipersBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://watchdocumentaries.com/wp-content/uploads/rooftop-snipers-game.jpg"
+              alt="rooftop snipers" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <div class="tile">
+          <button
+            id="motox3mwinterBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://www.coolmathgames.com/sites/default/files/MotoX3M-Winter_OG-logo.jpg"
+              alt="Moto X3M inter" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <div class="tile">
+          <button
+            id="mrbulletBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://img.gamepix.com/games/mr-bullet-2-online/cover/mr-bullet-2-online.png?w=400&ar=16:10"
+              alt="Mr bullet" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="retrobowlBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/en_US/games/switch/r/retro-bowl-switch/hero"
+              alt="retrobowl" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="stickmanhookBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://www.milysource.com/wp-content/uploads/edd/2024/01/Stickman-Hook.jpg"
+              alt="stick man hook" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="awsometanksBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://www.coolmathgames.com/sites/default/files/AwesomeTanks_OG-logo.jpg"
+              alt="awsome tanks" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <div class="tile">
+          <button
+            id="raftwarsBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://raft-wars.com/assets/images/featured_rwm.jpg"
+              alt="raft wars" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+        <div class="tile">
+          <button
+            id="imposterioBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://impostor.io/images/share/impostorio.png"
+              alt="imposter io" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+         <div class="tile">
+          <button
+            id="doodlejumpBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://cf.geekdo-images.com/OiPhflgflVqvMlJwSsrmrw__opengraph/img/c5aan4Zn8KoPXM71DtG8AIlIzhc=/0x0:972x510/fit-in/1200x630/filters:strip_icc()/pic1753060.jpg"
+              alt="doodle jump" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="motox3mpoolBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://images.crazygames.com/moto-x3m-pool-party_16x9/20241128073648/moto-x3m-pool-party_16x9-cover?auto=format,compress&q=75&cs=strip"
+              alt="Moto x3m pool party" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+         <div class="tile">
+          <button
+            id="cookieclickerBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://www.blackflix.com/wp-content/uploads/cookie-clicker-logo.webp"
+              alt="cookie clicker" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+         <div class="tile">
+          <button
+            id="csgoclickerBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYOzNRMoTc7ztKwc7o2jTY9ZMZGzbJSTW1wg&s"
+              alt="csgo clicker" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+         <div class="tile">
+          <button
+            id="motox3mspookyBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://www.coolmathgames.com/sites/default/files/MotoX3M-Spookyland_OG-logo.jpg"
+              alt="moto x3m spooky" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="mariobrosBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://www.nintendo.com/eu/media/images/10_share_images/games_15/virtual_console_nintendo_3ds_7/SI_3DSVC_SuperMarioBros.jpg"
+              alt="mario brothers" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="geodashBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://images.crazygames.com/games/geometry-dash-online/cover_16x9-1732744370399.png?auto=format,compress&q=75&cs=strip"
+              alt="geometry dash" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+
+         <div class="tile">
+          <button
+            id="hillsofsteelBtn"
+            style="width: 100%; height: 100%; background: transparent; border: none; cursor: pointer;"
+            >
+            <img
+              src="https://cdn.prod.website-files.com/5f3502b47fc55b9de26558f8/5f3684e0e484ac81c5c79547_heroHOS.png"
+              alt="hills of steel" 
+              style="width: 100%; height: 100%; border-radius: 10px;"
+            />
+          </button>
+        </div>
+        
+      </div>
+    </div>
+
+    <script>
+      // Stars background
+      document.addEventListener('DOMContentLoaded', () => {
+        const starsContainer = document.querySelector('.stars');
+        const totalStars = 400;  // Number of stars to generate
+
+        // Generate stars
+        for (let i = 0; i < totalStars; i++) {
+          const star = document.createElement('div');
+          star.classList.add('star');
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.animationDelay = `${Math.random() * 5}s`;
+          star.style.animationDuration = `${2 + Math.random() * 3}s`;
+          starsContainer.appendChild(star);
+        }
+      });
+
+      // Search functionality
+      document.getElementById('searchBar').addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase();
+        const tiles = document.querySelectorAll('.tile');
+        tiles.forEach(tile => {
+          const gameName = tile.querySelector('img') ? tile.querySelector('img').alt.toLowerCase() : '';
+          if (gameName.includes(searchQuery)) {
+            tile.style.display = 'block';
+          } else {
+            tile.style.display = 'none';
+          }
+        });
+      });
+         document.addEventListener('DOMContentLoaded', () => {
+        // Check for saved tab cloaking settings in localStorage
+        const savedTabCloak = localStorage.getItem('tabCloak');
+        if (savedTabCloak) {
+            const { title, icon } = JSON.parse(savedTabCloak);
+            // Apply the saved tab cloaking settings globally (for all pages)
+            updateTabInfo(title, icon);
+        }
+
+        // Function to update the tab title and icon
+        function updateTabInfo(title, icon) {
+            document.title = title;
+            const iconLink = document.querySelector("link[rel='icon']") || document.createElement("link");
+            iconLink.rel = "icon";
+            iconLink.href = icon;
+            document.head.appendChild(iconLink);
+        }
+    });
+
+  document.addEventListener('DOMContentLoaded', () => {
+      const savedTabCloak = localStorage.getItem('tabCloak');
+      if (savedTabCloak) {
+          const { title, icon } = JSON.parse(savedTabCloak);
+          updateTab(title, icon);
+      }
+  });
+
+  function updateTab(title, icon) {
+      document.title = title;
+      updateFavicon(icon);
+  }
+
+  function updateFavicon(iconURL) {
+      setTimeout(() => { // Delay to ensure DOM is ready
+          // Remove existing favicons
+          document.querySelectorAll("link[rel='icon'], link[rel='shortcut icon']").forEach(e => e.remove());
+
+          // Create and append new favicon
+          const newFavicon = document.createElement("link");
+          newFavicon.rel = "icon";
+          newFavicon.type = "image/x-icon";
+          newFavicon.href = iconURL + `?v=${new Date().getTime()}`; // Cache-busting
+          document.head.appendChild(newFavicon);
+
+          console.log("Favicon updated to:", newFavicon.href);
+      }, 100); // Small delay to avoid execution conflicts
+  }
+      document.getElementById("gamerequestBtn").addEventListener("click", () => {
+    window.open('https://forms.gle/4iCxAs3pgudrjBUi9', '_blank');
+});
+    
+      document.getElementById("liquidsoccerBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://SuperLiquidSoccer.github.io" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      document.getElementById("ships3dBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://yp3d.com/ships3d/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("polytrackBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://beta-polytrack.kodub.com" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("drivemadBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg77.github.io/game131022/drive-mad/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+        document.getElementById("boxingrndmBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://boxing-random-psi.vercel.app/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("soccerrndmBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/SoccerRandom/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("drifthuntersBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://webglmath.github.io/drift-hunters/ " style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      document.getElementById("subwaysurfersBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/SubwaySurfers/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      document.getElementById("rooftopsnipersBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/RooftopSnipers/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("motox3mwinterBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://oto-3-nter.vercel.app/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("mrbulletBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/MrBullet/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+        document.getElementById("retrobowlBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/RetroBowl/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+        document.getElementById("stickmanhookBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/StickmanHook/ " style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("awsometanksBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/AwesomeTanks2/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      document.getElementById("raftwarsBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/RaftWars2/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+        document.getElementById("imposterioBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/AmongUs/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      document.getElementById("doodlejumpBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/DoodleJump/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      document.getElementById("motox3mpoolBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://67dc249fdcaff100638f6dac--motoxm.netlify.app/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("cookieclickerBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://ubg98.github.io/CookieClicker2/ " style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("csgoclickerBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://kingofkfcjamal.github.io/CaseClicker/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("motox3mspookyBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://motox3mspookyy.netlify.app/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      document.getElementById("mariobrosBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://playmario.github.io/HTML5_Client/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      document.getElementById("geodashBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://geometrydash-lite.io/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+       document.getElementById("hillsofsteelBtn").addEventListener("click", () => {
+    var newTab = window.open('about:blank', '_blank');  // Use 'var' instead of 'const'
+    newTab.document.write(`
+        <iframe id="innerFrame" name="innerFrame" sandbox="allow-scripts allow-popups allow-forms allow-same-origin" frameborder="0" allowfullscreen="" src="https://hillsofsteel.netlify.app/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+        </iframe>    `);
+});
+      </script>
+      <script src="games/basketrandom.js"></script> 
+      <script src="games/slope.js"></script>
+      <script src="games/1v1lol.js"></script>
+      <script src="games/Eaglecraft.js"></script>
+      <script src="games/driftboss.js"></script> 
+      <script src="games/mario64.js"></script> 
+      <script src="games/crossyroad.js"></script> 
+      <script src="games/flappybird.js"></script>       
+      <script src="games/eggycar.js"></script>
+      <script src="games/snowrider.js"></script>
+      <script src="games/kahoot.js"></script>
+      <script src="panicKey.js"></script>
+      <script scr="games/liquidsoccer.js"></script>
+   </body>
+</html>
