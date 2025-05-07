@@ -1,9 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Game Launcher</title>
-    <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/512px-Google_Drive_icon_%282020%29.svg.png">
+<head><title>Google Drive</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg" type="image/svg+xml">
     <style>
+    
+
+        #download-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #download-btn:hover {
+            background-color: #666;
+        }
+
         body {
             background-color: #1e1e1e;
             font-family: 'Segoe UI', sans-serif;
@@ -51,7 +68,8 @@
     </style>
 </head>
 <body>
-    
+    <button id="download-btn" onclick="downloadLauncher()">If games are getting blocked, use this HTML file</button>
+    <h1>Game Launcher</h1>
 
     <button onclick="openSite('https://watch.sling.com')">Open Sling</button>
     <button onclick="openSite('https://definitelynotblocked.vercel.app/games/1v1lol/index.html')">Open 1v1.lol</button>
@@ -81,34 +99,30 @@
     <button onclick="openSite('https://definitelynotblocked.vercel.app/games/ovo/index.html')">Open OVO</button>
     <button onclick="openSite('https://definitelynotblocked.vercel.app/games/thesims3/index.html')">Open The Sims 3</button>
     <button onclick="openSite('https://definitelynotblocked.vercel.app/games/legobatman/index.html')">Open Lego Batman</button>
+    <button onclick="openSite('https://blooketbot.me')">Open Blooket Hacks</button>
 
     <div>
         <input type="text" id="custom-url-input" placeholder="Enter domain, e.g. example.com">
         <button onclick="openCustomURL()">Open Custom Site</button>
     </div>
-
-        
-
     <button onclick="window.open('https://forms.gle/9NLM4n4ih2vZLPYk6', '_blank')">Request a Game</button>
 
     <script>
         function openSite(url) {
             const win = window.open();
-            win.document.write(`<!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Google Drive</title>
-                    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg" type="image/svg+xml">
-                    <style>
-                        body { margin: 0; padding: 0; overflow: hidden; }
-                        iframe { width: 100vw; height: 100vh; border: none; position: fixed; top: 0; left: 0; }
-                    </style>
-                </head>
-                <body>
-                    <iframe src="${url}"></iframe>
-                </body>
-                </html>`);
-            win.document.close();
+            const iframe = win.document.createElement('iframe');
+            iframe.style.width = "100vw";
+            iframe.style.height = "100vh";
+            iframe.style.border = "none";
+            iframe.style.position = "fixed";
+            iframe.style.top = "0";
+            iframe.style.left = "0";
+            iframe.src = url;
+
+            win.document.body.style.margin = "0";
+            win.document.body.style.padding = "0";
+            win.document.documentElement.style.overflow = "hidden";
+            win.document.body.appendChild(iframe);
         }
 
         function openCustomURL() {
@@ -119,6 +133,16 @@
             } else {
                 alert('Please enter a valid URL.');
             }
+        }
+
+        function downloadLauncher() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'launcher.html';
+            a.click();
+            URL.revokeObjectURL(a.href);
         }
     </script>
 </body>
